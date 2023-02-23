@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\SessionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SessionController::class, 'create']);
+Route::post('/', [SessionController::class, 'store']);
