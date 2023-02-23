@@ -1,6 +1,6 @@
 <x-layout>
     <div class="flex justify-center items-center h-full">
-        <div class="w-1/4 border border-gray-200 p-6 rounded-xl bg-white">
+        <div class="w-1/4 max-w-xl border border-gray-200 p-6 rounded-xl bg-white">
             <h1 class="font-bold text-center">Log In!</h1>
             <form action="/" method="post" class="mt-12">
                 @csrf
@@ -24,7 +24,7 @@
                     @enderror
                 </div>
                 <div class="mb-6">
-                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="password">
+                    <label class="block mb-2 uppercase font-bold text-xs text-gray-700 text" for="password">
                         Password
                     </label>
                     <input
@@ -46,6 +46,9 @@
                     </button>
                 </div>
             </form>
+            <div class="text-center w-full">
+                Don't you have an account? <a href="/register" class="text-blue-500 hover:cursor-pointer hover:font-bold">Sign in!</a>
+            </div>
         </div>
     </div>
 </x-layout>
