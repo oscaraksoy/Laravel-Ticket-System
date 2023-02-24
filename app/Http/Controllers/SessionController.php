@@ -18,9 +18,14 @@ class SessionController extends Controller
         ]);
 
         if(auth()->attempt($attributes)){
-            return redirect('/user');
+            return redirect('/home');
         }
 
         return back();
+    }
+
+    public function destroy(){
+        auth()->logout();
+        return redirect('/')->with('dialogMessage', 'Goodbye!');
     }
 }
