@@ -9,7 +9,9 @@
             </a>
         </li>
         <li>
-            My Tickets
+            <a href="/tickets">
+                My Tickets
+            </a>
         </li>
         <li>
             <form action="/logout" method="post">

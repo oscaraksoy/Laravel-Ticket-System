@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
 /*
@@ -25,4 +26,6 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth');
 
 Route::get('/home', [HomeController::class, 'create']);
-Route::post('/home', [HomeController::class, 'store']);
+
+Route::get('/tickets', [TicketController::class, 'create']);
+Route::post('/tickets/create', [TicketController::class, 'store']);
