@@ -11,6 +11,12 @@ class Ticket extends Model
 
     protected $guarded = [''];
 
+    public static function findUserLastThreeTickets(){
+        $tickets = Ticket::all()->take(-3);
+
+        return $tickets;
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

@@ -1,94 +1,65 @@
 <x-layout>
     <x-navbar />
-    <div class="max-w-4xl mx-auto mt-16 rounded-xl bg-white p-6">
-            <div class="w-full">
-                <h1 class="font-bold text-xl">Create Ticket</h1>
-                <hr class="divide-x-reverse my-5"/>
+        <div class="py-6 px-48">
+            <h1 class="text-lg font-bold">Welcome, {{ auth()->user()->name }}! </h1>
+            <div class="grid grid-cols-2 gap-x-6">
+                <x-info-bar title="Tickets with open status" subtitle="0"/>
+                <x-info-bar title="Tickets with closed status" subtitle="0"/>
             </div>
-            <div class="flex flex-row mt-5 w-full">
-                <p>
-                    New Ticket
-                </p>
-                <form action="/home" method="post" class="flex-1 ml-24">
-                    @csrf
-                    <div class="mb-8">
-                        <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="title">
-                            Title
-                        </label>
-                        <input
-                            class="border border-gray-200 p-2 w-full rounded"
-                            type="text"
-                            name="title"
-                            id="title"
-                            value="{{ old("title") }}"
-                            required
-                        />
+            <hr class="divider my-12"/>
+            <h1 class="text-lg font-bold">Your last 3 tickets</h1>
+            <div class="p-6 bg-white rounded-xl mt-6">
+                @if($tickets->count())
 
-                        @error("title")
-                        <p class="text-red-500 text-xs mt-1">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-                    <div class="mb-8">
-                        <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="products">
-                            Products
-                        </label>
-                        <select class="w-full h-12 bg-white border-gray-200 border rounded" name="product">
-                            @foreach($products as $product)
-                                <option value="{{ $product->id }}">
-                                    {{ $product->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                @else
+                    <p class="font-medium text-lg text-center">
+                        You don't have any ticket.
+                    </p>
+                @endif
 
-                        @error("products")
-                        <p class="text-red-500 text-xs mt-1">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-                    <div class="mb-8">
-                        <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="categories">
-                            Categories
-                        </label>
-                        <select class="w-full h-12 bg-white border-gray-200 border rounded" name="category">
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Title
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Product
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Category
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center">
+                                Status
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($tickets as $ticket)
+                            <tr class="bg-white {{ $loop->last ? '' : 'border-b' }} hover:bg-gray-50 ease-in-out duration-100">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <a class="hover:cursor-pointer" href="/tickets/{{ $ticket->id }}">
+                                        {{ $ticket->title }}
+                                    </a>
+                                </th>
+                                <td class="px-6 py-4">
+                                    <a href="/tickets/{{ $ticket->id }}">
+                                        {{ $ticket->product->name }}
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ $ticket->category->name }}
+                                </td>
+                                <td class="px-6 py-4 flex items-center justify-center">
+                                    <x-ticket-status type="{{ $ticket->status }}" />
+                                </td>
+                            </tr>
+                        @endforeach
 
-                        @error("categories")
-                        <p class="text-red-500 text-xs mt-1">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-                    <div class="mb-6">
-                        <label class="block mb-2 uppercase font-bold text-xs text-gray-700 text" for="explanation">
-                            Explanation
-                        </label>
-                        <textarea
-                            class="border border-gray-200 p-2 w-full"
-                            rows="6"
-                            name="explanation"
-                            id="explanation"
-                            required
-                        ></textarea>
-                        @error("explanation")
-                        <p class="text-red-500 text-xs mt-1">
-                            {{ $message }}
-                        </p>
-                        @enderror
-                    </div>
-                    <div class="mb-6 flex justify-start mt-12">
-                        <button type="submit" class="w-64 bg-blue-400 text-white rounded py-2 px-4 hover:bg-blue-500 transition-all ease-in-out">
-                            Send
-                        </button>
-                    </div>
-                </form>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-    </div>
+        </div>
 </x-layout>
