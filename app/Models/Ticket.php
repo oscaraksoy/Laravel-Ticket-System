@@ -11,8 +11,10 @@ class Ticket extends Model
 
     protected $guarded = [''];
 
+    protected $with = ['product', 'category'];
+
     public static function findUserLastThreeTickets(){
-        $tickets = Ticket::all()->take(-3);
+        $tickets = Ticket::where('user_id', auth()->user()->id)->latest()->take(3)->get();
 
         return $tickets;
     }
