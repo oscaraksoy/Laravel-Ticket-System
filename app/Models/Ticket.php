@@ -13,10 +13,31 @@ class Ticket extends Model
 
     protected $with = ['product', 'category'];
 
-    public static function findUserLastThreeTickets(){
-        $tickets = Ticket::where('user_id', auth()->user()->id)->latest()->take(3)->get();
+    public static function findUserTickets(){
+        return Ticket::where('user_id', auth()->user()->id);
+    }
 
-        return $tickets;
+    public static function setPaginateToUserTickets(){
+        return Ticket::findUserTickets()->paginate(8);
+    }
+
+    public static function findUserLastThreeTickets(){
+        return Ticket::findUserTickets()->latest()->take(3)->get();
+    }
+
+    public static function findUserTicketsWithOpenStatus(){
+        return Ticket::findUserTickets()->where('status', 1);
+    }
+    public static function findUserTicketsWithClosedStatus(){
+        return Ticket::findUserTickets()->where('status', 0);
+    }
+
+    public static function userTicketsWithOpenStatusCount(){
+        return Ticket::findUserTicketsWithOpenStatus()->count();
+    }
+
+    public static function userTicketsWithClosedStatusCount(){
+        return Ticket::findUserTicketsWithClosedStatus()->count();
     }
 
     public function user(){
