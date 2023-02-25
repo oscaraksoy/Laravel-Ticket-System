@@ -9,6 +9,8 @@ class HomeController extends Controller
     public static function create(){
         return view('home.create', [
             'tickets' => Ticket::findUserLastThreeTickets(),
+            'openTicketsCount' => Ticket::userTicketsWithOpenStatusCount(),
+            'closedTicketsCount' => Ticket::userTicketsWithClosedStatusCount(),
         ]);
     }
 }

@@ -8,6 +8,12 @@ use App\Models\Ticket;
 
 class TicketController extends Controller
 {
+    public function index(){
+        return view('ticket.index', [
+            'tickets' => Ticket::setPaginateToUserTickets(),
+        ]);
+    }
+
     public function create(){
         return view('ticket.create', [
             'categories' => Category::all(),
