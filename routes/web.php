@@ -27,5 +27,7 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 
 Route::get('/home', [HomeController::class, 'create']);
 
-Route::get('/tickets', [TicketController::class, 'create']);
+Route::get('/tickets', [TicketController::class, 'index']);
+
+Route::get('/tickets/create', [TicketController::class, 'create']);
 Route::post('/tickets/create', [TicketController::class, 'store']);
