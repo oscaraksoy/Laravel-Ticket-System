@@ -25,12 +25,12 @@
                 @foreach($tickets as $ticket)
                     <tr class="bg-white {{ $loop->last ? '' : 'border-b' }} hover:bg-gray-50 ease-in-out duration-100">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            <a class="hover:cursor-pointer" href="/tickets/{{ $ticket->id }}">
+                            <a class="hover:cursor-pointer" href="/tickets/ticket/{{ $ticket->id }}">
                                 {{ $ticket->title }}
                             </a>
                         </th>
                         <td class="px-6 py-4">
-                            <a href="/tickets/{{ $ticket->id }}">
+                            <a href="/tickets/ticket/{{ $ticket->id }}">
                                 {{ $ticket->product->name }}
                             </a>
                         </td>
