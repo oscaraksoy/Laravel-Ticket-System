@@ -6,16 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', [SessionController::class, 'create']);
 Route::post('/', [SessionController::class, 'store']);
@@ -28,6 +19,7 @@ Route::post('/logout', [SessionController::class, 'destroy'])->middleware('auth'
 Route::get('/home', [HomeController::class, 'create']);
 
 Route::get('/tickets', [TicketController::class, 'index']);
+Route::get('/tickets/ticket/{ticket:id}', [TicketController::class, 'show']);
 
 Route::get('/tickets/create', [TicketController::class, 'create']);
 Route::post('/tickets/create', [TicketController::class, 'store']);

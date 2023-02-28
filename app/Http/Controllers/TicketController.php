@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Ticket;
+use App\Models\TicketReply;
 
 class TicketController extends Controller
 {
     public function index(){
         return view('ticket.index', [
             'tickets' => Ticket::setPaginateToUserTickets(),
+        ]);
+    }
+
+    public function show(Ticket $ticket){
+        return view('ticket.show', [
+            'ticket' => $ticket,
+            'replies' => TicketReply::findTicketReplies($ticket)
         ]);
     }
 
