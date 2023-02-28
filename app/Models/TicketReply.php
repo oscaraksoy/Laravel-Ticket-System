@@ -9,6 +9,12 @@ class TicketReply extends Model
 {
     use HasFactory;
 
+    protected $with = ['user', 'ticket'];
+
+    public static function findTicketReplies($ticket){
+        return TicketReply::all()->where('ticket_id', $ticket->id);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
