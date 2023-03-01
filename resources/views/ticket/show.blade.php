@@ -47,9 +47,11 @@
                         Explanation
                     </div>
                     <div class="border">
-                    <textarea class="w-full py-3 px-6 border-b" rows="6" readonly>
-                        {{ $ticket->explanation }}
-                    </textarea>
+                    <div class="w-full py-6 px-6 border-b">
+                        <p>
+                            {{ $ticket->explanation }}
+                        </p>
+                    </div>
                         <div class="px-2 py-4">
                             Attachments
                         </div>
@@ -66,7 +68,7 @@
                 <div class="px-4 py-2 space-y-12">
                     <div>
                         <h2 class="text-lg font-medium mb-6">Your Comment</h2>
-                        <form action="/tickets/ticket/{{ $ticket->id }}" method="post">
+                        <form action="/tickets/{{ $ticket->id }}/replies/" method="post">
                             @csrf
                             <textarea name="reply" placeholder="Write..." class="w-full border px-4 py-3" rows="4"></textarea>
                             @error('reply')
@@ -84,7 +86,7 @@
                     <hr class="divider"/>
                     @if($replies->count())
                         @foreach($replies as $reply)
-                            <x-ticket-reply name="{{ $reply->user->name }}" explanation="{{ $reply->explanation }}" date="{{ $reply->created_at->diffForHumans() }}" />
+                            <x-ticket-reply :reply='$reply' :ticket='$ticket'/>
                             @unless($loop->last)
                                 <hr class="divider" />
                             @endunless
