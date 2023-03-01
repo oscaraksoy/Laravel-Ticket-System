@@ -66,9 +66,14 @@
                 <div class="px-4 py-2 space-y-12">
                     <div>
                         <h2 class="text-lg font-medium mb-6">Your Comment</h2>
-                        <form action="" method="post">
+                        <form action="/tickets/ticket/{{ $ticket->id }}" method="post">
                             @csrf
-                            <textarea placeholder="Write..." class="w-full border px-4 py-3" rows="4"></textarea>
+                            <textarea name="reply" placeholder="Write..." class="w-full border px-4 py-3" rows="4"></textarea>
+                            @error('reply')
+                            <p class="text-red-500 text-xs mt-1">
+                                {{ $message }}
+                            </p>
+                            @enderror
                             <div class="flex flex-1 justify-end">
                                 <button class="px-12 text-white py-2 rounded-md bg-blue-500" type="submit">
                                     Send

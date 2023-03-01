@@ -11,6 +11,8 @@ class TicketReply extends Model
 
     protected $with = ['user', 'ticket'];
 
+    protected $fillable = ['user_id', 'explanation', 'attachments'];
+
     public static function findTicketReplies($ticket){
         return TicketReply::all()->where('ticket_id', $ticket->id);
     }
