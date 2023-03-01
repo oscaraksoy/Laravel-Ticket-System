@@ -22,7 +22,9 @@ Route::get('/home', [HomeController::class, 'create']);
 Route::get('/tickets', [TicketController::class, 'index']);
 
 Route::get('/tickets/ticket/{ticket:id}', [TicketController::class, 'show']);
-Route::post('/tickets/ticket/{ticket:id}', [TicketRepliesController::class, 'store']);
+
+Route::post('/tickets/{ticket:id}/replies/', [TicketRepliesController::class, 'store']);
+Route::delete('/tickets/{ticket:id}/replies/{reply:id}', [TicketRepliesController::class, 'destroy']);
 
 Route::get('/tickets/create', [TicketController::class, 'create']);
 Route::post('/tickets/create', [TicketController::class, 'store']);
