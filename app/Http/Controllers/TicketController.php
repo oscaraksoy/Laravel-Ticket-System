@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\Ticket;
 use App\Models\TicketReply;
@@ -16,6 +17,11 @@ class TicketController extends Controller
     }
 
     public function show(Ticket $ticket){
+        if(request()->has('notificationId')){
+            $notificationId = request('notificationId');
+            Message::setReadMessage($notificationId);
+        }
+
         return view('ticket.show', [
             'ticket' => $ticket,
             'replies' => TicketReply::findTicketReplies($ticket)
