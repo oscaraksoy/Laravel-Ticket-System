@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Ticket;
 
 class HomeController extends Controller
@@ -11,6 +12,8 @@ class HomeController extends Controller
             'tickets' => Ticket::findUserLastThreeTickets(),
             'openTicketsCount' => Ticket::userTicketsWithOpenStatusCount(),
             'closedTicketsCount' => Ticket::userTicketsWithClosedStatusCount(),
+            'messages' => Message::findUserMessagesPaginated(),
+            'unreadMessagesCount' => Message::getTotalUnreadMessages()
         ]);
     }
 }
