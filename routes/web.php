@@ -7,6 +7,7 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TicketRepliesController;
+use App\Http\Controllers\StaffDashboardController;
 
 
 Route::get('/', [SessionController::class, 'create']);
@@ -28,3 +29,7 @@ Route::delete('/tickets/{ticket:id}/replies/{reply:id}', [TicketRepliesControlle
 
 Route::get('/tickets/create', [TicketController::class, 'create']);
 Route::post('/tickets/create', [TicketController::class, 'store']);
+
+Route::middleware('can:staff')->group(function(){
+   Route::get('/staff/dashboard', [StaffDashboardController::class, 'create']);
+});
