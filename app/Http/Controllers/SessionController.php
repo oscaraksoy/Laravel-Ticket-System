@@ -18,7 +18,16 @@ class SessionController extends Controller
         ]);
 
         if(auth()->attempt($attributes)){
-            return redirect('/home');
+            $user = auth()->user();
+
+            if($user->can('admin')){
+                // admin route
+            }
+            else if($user->can('staff')){
+                return redirect('/staff/dashboard');
+            }else{
+                return redirect('/home');
+            }
         }
 
         return back();
