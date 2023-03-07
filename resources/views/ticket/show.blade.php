@@ -36,6 +36,13 @@
                         {{ $ticket->status == 0 ? "Closed" : "Open" }}
                     </div>
                 </div>
+                @can('staff')
+                    <form>
+                        <button type="submit" class="relative right-0 px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 ease-in-out transition rounded-md text-md">
+                            Submit as <strong>Solved</strong>
+                        </button>
+                    </form>
+                @endcan
             </div>
             <div class="flex-1 bg-white px-16 py-8 border-l space-y-6">
                 <div>
@@ -97,14 +104,6 @@
                 </div>
             </div>
         </div>
-        <!-- only staff can see -->
-        <!--<div class="fixed bottom-0 p-4  w-full flex justify-end">
-            <form>
-                <button type="submit" class="relative right-0 px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 ease-in-out transition rounded-md text-md">
-                    Submit as <strong>Solved</strong>
-                </button>
-            </form>
-        </div>-->
     </div>
 
 </x-layout>
