@@ -38,7 +38,13 @@ class RegisterController extends Controller
             ],
         ]);
 
-        User::create($attributes);
+        User::create([
+            'name' => $attributes['name'],
+            'username' => $attributes['username'],
+            'email' => $attributes['email'],
+            'password' => $attributes['password'],
+            'role_id' => 3
+        ]);
 
         return redirect('/')->with('dialogMessage', 'Your account has been created.');
     }
