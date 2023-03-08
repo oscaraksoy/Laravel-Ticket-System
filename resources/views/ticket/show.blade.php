@@ -1,5 +1,9 @@
 <x-layout>
-    <x-navbar />
+    @if(auth()->user()->role->name == 'staff')
+        <x-staff.navbar />
+    @elseif(auth()->user()->role->name == 'user')
+        <x-navbar />
+    @endif
     <div class="px-6 py-4">
         <div class="flex flex-row items-center justify-between p-4 bg-white rounded-tl-md rounded-tr-md">
             <div class="flex flex-row space-x-2 border border-blue-500 rounded">
@@ -30,22 +34,55 @@
                         {{ $ticket->user->email}}
                     </div>
                 </div>
-                <div class="space-y-2">
-                    <h1>Status</h1>
-                    <div class="px-4 py-2 bg-white w-full rounded border">
-                        {{ $ticket->status == 0 ? "Closed" : "Open" }}
-                    </div>
-                </div>
                 @can('staff')
-                    <form>
-                        <button type="submit" class="relative right-0 px-6 py-3 text-white bg-blue-500 hover:bg-blue-700 ease-in-out transition rounded-md text-md">
-                            Submit as <strong>Solved</strong>
+                    <form action="/tickets/ticket/{{ $ticket->id }}" method="post" class="space-y-6">
+                        @csrf
+                        @method('PATCH')
+                        <div class="space-y-2">
+                            <h1>Statuses</h1>
+                            <div class="flex flex-row space-x-2">
+                                <select name="status" class="px-4 py-2 bg-white w-full rounded border">
+                                    @foreach($statuses as $status)
+                                        <option value="{{ $status->id }}" {{ $status->id == $ticket->status->id ? 'selected' : ''}}>
+                                            {{ $status->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <h1>Priority</h1>
+                            <div class="flex flex-row space-x-2">
+                                <select name="priority" class="px-4 py-2 bg-white w-full rounded border">
+                                    @foreach($priorities as $priority)
+                                        <option value="{{ $priority->id }}" {{ $priority->id == $ticket->priority->id ? 'selected' : ''}}>
+                                            {{ $priority->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full mt-8 px-4 py-2 rounded-md text-white bg-blue-500">
+                            Update
                         </button>
                     </form>
+                @elsecan('user')
+                    <div class="space-y-2">
+                        <h1>Status</h1>
+                        <div class="px-4 py-2 bg-white w-full rounded border">
+                            {{ $ticket->status->name}}
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <h1>Priority</h1>
+                        <div class="px-4 py-2 bg-white w-full rounded border">
+                            {{ $ticket->priority->name}}
+                        </div>
+                    </div>
                 @endcan
             </div>
             <div class="flex-1 bg-white px-16 py-8 border-l space-y-6">
-                <div>
+                <div class="max-w-7xl break-words">
                     <h1 class="text-2xl">{{ $ticket->title }}</h1>
                     <small class="text-gray-500">from {{ $ticket->user->name }}</small>
                 </div>
@@ -54,8 +91,8 @@
                         Explanation
                     </div>
                     <div class="border">
-                    <div class="w-full py-6 px-6 border-b">
-                        <p>
+                    <div class="max-w-7xl py-6 px-6 border-b">
+                        <p class="break-words">
                             {{ $ticket->explanation }}
                         </p>
                     </div>
