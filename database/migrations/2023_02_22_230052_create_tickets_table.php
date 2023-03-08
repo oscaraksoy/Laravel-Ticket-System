@@ -16,9 +16,10 @@ return new class extends Migration
             $table->foreignId("user_id");
             $table->foreignId("product_id");
             $table->foreignId("category_id");
+            $table->foreignId("status_id");
+            $table->foreignId("priority_id");
             $table->string("title");
             $table->text("explanation");
-            $table->boolean("status");
             $table->text("attachments");
             $table->timestamps();
         });
