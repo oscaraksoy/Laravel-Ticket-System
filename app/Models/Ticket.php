@@ -11,7 +11,11 @@ class Ticket extends Model
 
     protected $guarded = [''];
 
-    protected $with = ['product', 'category'];
+    protected $with = ['product', 'category', 'status', 'priority'];
+
+    public static function findTickets(){
+        return Ticket::all();
+    }
 
     public static function findUserTickets(){
         return Ticket::where('user_id', auth()->user()->id);
@@ -26,10 +30,10 @@ class Ticket extends Model
     }
 
     public static function findUserTicketsWithOpenStatus(){
-        return Ticket::findUserTickets()->where('status', 1);
+        return Ticket::findUserTickets()->where('status_id', 1);
     }
     public static function findUserTicketsWithClosedStatus(){
-        return Ticket::findUserTickets()->where('status', 0);
+        return Ticket::findUserTickets()->where('status_id', 0);
     }
 
     public static function userTicketsWithOpenStatusCount(){
@@ -38,6 +42,41 @@ class Ticket extends Model
 
     public static function userTicketsWithClosedStatusCount(){
         return Ticket::findUserTicketsWithClosedStatus()->count();
+    }
+
+    public static function findTicketsWithOpenStatusCount(){
+        return Ticket::findTickets()->where('status_id', 1)->count();
+    }
+
+    public static function findTicketsWithRepliedStatusCount(){
+        return Ticket::findTickets()->where('status_id', 2)->count();
+    }
+
+    public static function findTicketsWithClosedStatusCount(){
+        return Ticket::findTickets()->where('status_id', 0)->count();
+    }
+
+    public static function priorityWhereBuilderByPriortyId($priorityId){
+        return Ticket::findTickets()
+            ->where('priority_id', $priorityId)
+            ->whereIn('status_id', [1, 2])
+            ->count();
+    }
+
+    public static function findTicketsWithCriticalPriorityCount(){
+        return self::priorityWhereBuilderByPriortyId(1);
+    }
+
+    public static function findTicketsWithHighPriorityCount(){
+        return self::priorityWhereBuilderByPriortyId(2);
+    }
+
+    public static function findTicketsWithMediumPriorityCount(){
+        return self::priorityWhereBuilderByPriortyId(3);
+    }
+
+    public static function findTicketsWithLowPriorityCount(){
+        return self::priorityWhereBuilderByPriortyId(4);
     }
 
     public function user(){
@@ -54,5 +93,13 @@ class Ticket extends Model
 
     public function replies(){
         return $this->hasMany(TicketReply::class);
+    }
+
+    public function status(){
+        return $this->belongsTo(StatusCode::class);
+    }
+
+    public function priority(){
+        return $this->belongsTo(TicketPriority::class);
     }
 }
