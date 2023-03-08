@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TicketRepliesController;
 use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\StaffTicketsController;
 
 
 Route::get('/', [SessionController::class, 'create']);
@@ -31,5 +32,7 @@ Route::get('/tickets/create', [TicketController::class, 'create']);
 Route::post('/tickets/create', [TicketController::class, 'store']);
 
 Route::middleware('can:staff')->group(function(){
-   Route::get('/staff/dashboard', [StaffDashboardController::class, 'create']);
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'create']);
+    Route::get('/staff/tickets', [StaffTicketsController::class, 'create']);
+    Route::patch('/tickets/ticket/{ticket:id}', [StaffTicketsController::class, 'update']);
 });
