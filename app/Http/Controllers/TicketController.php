@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Message;
 use App\Models\Product;
+use App\Models\StatusCode;
 use App\Models\Ticket;
+use App\Models\TicketPriority;
 use App\Models\TicketReply;
 
 class TicketController extends Controller
@@ -24,7 +26,9 @@ class TicketController extends Controller
 
         return view('ticket.show', [
             'ticket' => $ticket,
-            'replies' => TicketReply::findTicketReplies($ticket)
+            'replies' => TicketReply::findTicketReplies($ticket),
+            'priorities' => TicketPriority::all(),
+            'statuses' => StatusCode::all()
         ]);
     }
 
@@ -49,7 +53,8 @@ class TicketController extends Controller
             'category_id' => $attributes['category'],
             'title' => $attributes['title'],
             'explanation' => $attributes['explanation'],
-            'status' => 1,
+            'status_id' => 1,
+            'priority_id' => 4,
             'attachments' => '',
         ]);
 
