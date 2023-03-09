@@ -5,7 +5,7 @@
             flex-direction: row;
         }
 
-        .page-item button, span{
+        .page-item > button and span{
             padding:6px;
             display: flex;
             align-items: center;
@@ -145,7 +145,7 @@
                         </td>
                     </tr>
                     {{-- Column headings --}}
-                    <tr class="bg-gray-200 border-t border-b">
+                    <tr class="bg-gray-50 border-t border-b">
                         {{-- Bulk actions --}}
                         @if($tableBulkActionsArray)
                             <th wire:key="bulk-actions" class="flex items-center" scope="col">
@@ -221,7 +221,7 @@
                             {{-- Row columns values --}}
                             @foreach($columns as $column)
                                 @if($loop->first)
-                                    <th class="p-6 max-w-sm" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}"{!! $orderColumn ? ' wire:sortable.handle style="cursor: move;"' : null !!} scope="row">
+                                    <th class="p-6 max-w-sm" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}" {!! $orderColumn ? ' wire:sortable.handle style="cursor: move;"' : null !!} scope="row">
                                         {!! $orderColumn ? '<span class="mr-2">' . config('laravel-table.icon.drag_drop') . '</span>' : null !!}{{ $column->getValue($model, $tableColumnActionsArray) }}
                                     </th>
                                 @else
