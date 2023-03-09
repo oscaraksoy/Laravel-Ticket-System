@@ -38,7 +38,7 @@
                             {{ $ticket->category->name }}
                         </td>
                         <td class="px-6 py-4 flex items-center justify-center">
-                            <x-ticket-status type="{{ $ticket->status }}" />
+                            <x-ticket-status type="{{ $ticket->status->id }}" />
                         </td>
                     </tr>
                 @endforeach
