@@ -21,7 +21,7 @@ class SessionController extends Controller
             $user = auth()->user();
 
             if($user->can('admin')){
-                // admin route
+                return redirect('/admin/panel');
             }
             else if($user->can('staff')){
                 return redirect('/staff/dashboard');
