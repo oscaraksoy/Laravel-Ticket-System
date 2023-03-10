@@ -1,7 +1,7 @@
-<aside class="flex flex-col justify-between w-80 border-r border-r-gray-900 h-screen">
+<aside class="flex flex-col justify-between w-80 border-r border-r-gray-900 h-screen text-sm">
     <div class="py-4 px-6">
         <h1 class="font-bold text-2xl mb-6">Ticket System</h1>
-        <div class="space-y-12">
+        <div class="space-y-6">
             {{ $slot }}
         </div>
     </div>
