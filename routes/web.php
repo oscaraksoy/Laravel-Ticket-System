@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\AdminStaffsController;
 use App\Http\Controllers\AdminTicketsController;
 use App\Http\Controllers\AdminProductsController;
+use App\Http\Controllers\AdminCategoriesController;
 
 
 Route::get('/', [SessionController::class, 'create']);
@@ -47,5 +48,6 @@ Route::middleware('can:admin')->group(function(){
     Route::get('/admin/users', [AdminUsersController::class, "create"]);
     Route::get('/admin/tickets', [AdminTicketsController::class, "create"]);
     Route::get('/admin/staffs', [AdminStaffsController::class, "create"]);
+    Route::get('/admin/categories', [AdminCategoriesController::class, "create"]);
     Route::get('/admin/products', [AdminProductsController::class, "create"]);
 });
