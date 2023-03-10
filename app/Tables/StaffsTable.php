@@ -2,31 +2,29 @@
 
 namespace App\Tables;
 
-use App\Models\Staff;
+use App\Models\User;
 use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
-use Okipa\LaravelTable\RowActions\DestroyRowAction;
-use Okipa\LaravelTable\RowActions\EditRowAction;
+use Illuminate\Database\Eloquent\Builder;
 use Okipa\LaravelTable\Table;
 
 class StaffsTable extends AbstractTableConfiguration
 {
     protected function table(): Table
     {
-        return Table::make()->model(Staff::class)
-            ->rowActions(fn(Staff $staff) => [
-                new EditRowAction(route('staff.edit', $staff)),
-                new DestroyRowAction(),
-            ]);
+        return Table::make()->model(User::class)
+            ->query(fn(Builder $query) => $query->where('role_id', 2));
     }
 
     protected function columns(): array
     {
         return [
-            Column::make('id')->sortable(),
-            Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable(),
-            Column::make('updated_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->sortByDefault('desc'),
+            Column::make('id')->sortable()->title("ID"),
+            Column::make('name')->searchable()->sortable()->title("Name"),
+            Column::make('username')->searchable()->sortable()->title("Username"),
+            Column::make('email')->searchable()->sortable()->title("Email"),
+            Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->title("Created At"),
         ];
     }
 
