@@ -42,8 +42,8 @@
                 {{ __('You can rearrange the order of the items in this list using a drag and drop action.') }}
             </div>
         @endif
-        <div class="">
-            <table class="w-full text-md text-left dark:text-gray-400s">
+        <div class="text-sm">
+            <table class="w-full text-left dark:text-gray-400s">
                 {{-- Table header--}}
                 <thead>
                     {{-- Filters --}}
@@ -211,7 +211,7 @@
                 <tbody{!! $orderColumn ? ' wire:sortable="reorder"' : null !!}>
                     {{-- Rows --}}
                     @forelse($rows as $model)
-                        <tr wire:key="row-{{ $model->getKey() }}"{!! $orderColumn ? ' wire:sortable.item="' . $model->getKey() . '"' : null !!} @class(array_merge(Arr::get($tableRowClass, $model->laravel_table_unique_identifier, []), ['border-b']))>
+                        <tr class="transition-all duration-100 hover:bg-gray-100 {{ $loop->even ? 'bg-gray-50' : '' }}" wire:key="row-{{ $model->getKey() }}"{!! $orderColumn ? ' wire:sortable.item="' . $model->getKey() . '"' : null !!} @class(array_merge(Arr::get($tableRowClass, $model->laravel_table_unique_identifier, []), ['border-b']))>
                             {{-- Row bulk action selector --}}
                             @if($tableBulkActionsArray)
                                 <td>
@@ -221,11 +221,11 @@
                             {{-- Row columns values --}}
                             @foreach($columns as $column)
                                 @if($loop->first)
-                                    <th class="p-6 max-w-sm" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}" {!! $orderColumn ? ' wire:sortable.handle style="cursor: move;"' : null !!} scope="row">
+                                    <th class="p-4 max-w-sm" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}" {!! $orderColumn ? ' wire:sortable.handle style="cursor: move;"' : null !!} scope="row">
                                         {!! $orderColumn ? '<span class="mr-2">' . config('laravel-table.icon.drag_drop') . '</span>' : null !!}{{ $column->getValue($model, $tableColumnActionsArray) }}
                                     </th>
                                 @else
-                                    <td class="p-6 max-w-sm overflow-ellipsis overflow-hidden whitespace-nowrap" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}">
+                                    <td class="p-4 max-w-sm overflow-ellipsis overflow-hidden whitespace-nowrap" wire:key="cell-{{ Str::of($column->getAttribute())->snake('-')->slug() }}-{{ $model->getKey() }}">
                                         {{ $column->getValue($model, $tableColumnActionsArray) }}
                                     </td>
                                 @endif
