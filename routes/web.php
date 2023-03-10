@@ -11,6 +11,7 @@ use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\StaffTicketsController;
 use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\AdminUsersController;
+use App\Http\Controllers\AdminStaffsController;
 
 
 Route::get('/', [SessionController::class, 'create']);
@@ -42,4 +43,5 @@ Route::middleware('can:staff')->group(function(){
 Route::middleware('can:admin')->group(function(){
     Route::get('/admin/panel', [AdminPanelController::class, "create"]);
     Route::get('/admin/users', [AdminUsersController::class, "create"]);
+    Route::get('/admin/staffs', [AdminStaffsController::class, "create"]);
 });
