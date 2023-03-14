@@ -89,6 +89,23 @@
             </p>
             @enderror
         </div>
+        <div class="mb-6 w-1/2">
+            <label class="block mb-4 uppercase font-medium text-xs text-gray-500 text" for="role">
+                Role
+            </label>
+            <select name="role" class="px-4 py-2 bg-white w-full rounded border">
+                @foreach($roles as $role)
+                    <option value="{{ $role->id }}" {{ $role->id == $user->role->id ? 'selected' : ''}}>
+                        {{ $role->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error("role")
+            <p class="text-red-500 text-xs mt-1">
+                {{ $message }}
+            </p>
+            @enderror
+        </div>
         <div class="flex flex-end w-1/2">
             <button type="submit" class="p-2 rounded-md w-full transition-all ease-in-out duration-100 bg-blue-500 text-white hover:bg-blue-400 ">
                 Submit

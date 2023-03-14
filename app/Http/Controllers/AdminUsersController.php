@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 
@@ -13,7 +14,8 @@ class AdminUsersController extends Controller
 
     public function show(User $user){
         return view('panel.users.show', [
-            'user' => $user
+            'user' => $user,
+            'roles' => Role::all()
         ]);
     }
 
@@ -24,8 +26,13 @@ class AdminUsersController extends Controller
             'email' => ['required', 'email']
         ]);
 
-        $user->update($attributes);
+        $user->update([
+            'name' => $attributes['name'],
+            'username' => $attributes['username'],
+            'email' => $attributes['email'],
+            'role_id' => request("role"),
+        ]);
 
-        return redirect('/admin/users')->with('dialogMessage', 'Product has been updated');
+        return redirect('/admin/users')->with('dialogMessage', 'User has been updated');
     }
 }
