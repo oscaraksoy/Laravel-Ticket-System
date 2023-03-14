@@ -3,10 +3,13 @@
 namespace App\Tables;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Illuminate\Database\Eloquent\Builder;
+use Okipa\LaravelTable\RowActions\DestroyRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class StaffsTable extends AbstractTableConfiguration
@@ -14,7 +17,12 @@ class StaffsTable extends AbstractTableConfiguration
     protected function table(): Table
     {
         return Table::make()->model(User::class)
-            ->query(fn(Builder $query) => $query->where('role_id', 2));
+            ->query(fn(Builder $query) => $query->where('role_id', 2))
+            ->rowActions(fn(User $user) => [
+                new ShowRowAction(route('panel.users.show', $user)),
+                (new DestroyRowAction())
+                    ->when(Auth::user()->isNot($user))
+            ]);
     }
 
     protected function columns(): array
