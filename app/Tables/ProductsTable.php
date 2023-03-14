@@ -7,14 +7,19 @@ use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
-use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class ProductsTable extends AbstractTableConfiguration
 {
     protected function table(): Table
     {
-        return Table::make()->model(Product::class);
+        return Table::make()
+            ->model(Product::class)
+            ->rowActions(fn(Product $product) => [
+                new ShowRowAction(route('panel.products.show', $product)),
+                new DestroyRowAction()
+            ]);
     }
 
     protected function columns(): array
