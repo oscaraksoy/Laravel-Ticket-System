@@ -8,7 +8,7 @@ use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
-use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class UsersTable extends AbstractTableConfiguration
@@ -17,15 +17,9 @@ class UsersTable extends AbstractTableConfiguration
     {
         return Table::make()->model(User::class)
             ->rowActions(fn(User $user) => [
+                new ShowRowAction(route('panel.users.show', $user)),
                 (new DestroyRowAction())
-                    // Destroy action will not be available for authenticated user
                     ->when(Auth::user()->isNot($user))
-                    // Override the action default confirmation question
-                    // Or set `false` if you do not want to require any confirmation for this action
-                    ->confirmationQuestion('Are you sure you want to delete user ' . $user->name . '?')
-                    // Override the action default feedback message
-                    // Or set `false` if you do not want to trigger any feedback message for this action
-                    ->feedbackMessage('User ' . $user->name . ' has been deleted.')
             ]);
     }
 
