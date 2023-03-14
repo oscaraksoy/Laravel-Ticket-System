@@ -3,6 +3,7 @@
 namespace App\Tables;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Okipa\LaravelTable\Abstracts\AbstractTableConfiguration;
 use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
@@ -19,6 +20,7 @@ class CategoriesTable extends AbstractTableConfiguration
             ->model(Category::class)
             ->rowActions(fn(Category $category) => [
                 new ShowRowAction(route('panel.categories.show', $category)),
+                new DestroyRowAction()
             ]);
     }
 

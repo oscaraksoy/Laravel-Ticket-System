@@ -2,6 +2,10 @@
     title="Category: {{ $category->name }}"
     subtitle="You can edit the category in this page."
     >
+    <x-table-confirmation-modal
+        icon="fa-solid fa-eraser"
+        title="Are you sure you want to delete this item?"
+        subtitle="Be careful! This item will be deleted forever!" />
     <form action="/admin/category/{{ $category->id }}" method="post" class="flex flex-col h-full rounded-md">
         @csrf
         @method('PATCH')
