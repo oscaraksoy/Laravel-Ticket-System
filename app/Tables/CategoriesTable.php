@@ -8,13 +8,18 @@ use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
 use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class CategoriesTable extends AbstractTableConfiguration
 {
     protected function table(): Table
     {
-        return Table::make()->model(Category::class);
+        return Table::make()
+            ->model(Category::class)
+            ->rowActions(fn(Category $category) => [
+                new ShowRowAction(route('panel.categories.show', $category)),
+            ]);
     }
 
     protected function columns(): array
