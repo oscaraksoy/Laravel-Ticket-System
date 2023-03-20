@@ -35,7 +35,7 @@ class TicketController extends Controller
     public function create(){
         return view('ticket.create', [
             'categories' => Category::all(),
-            'products' => Product::all(),
+            'parentCategories' => Product::groupByProductCategory(),
         ]);
     }
 
