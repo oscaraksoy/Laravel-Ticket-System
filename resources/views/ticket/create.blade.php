@@ -35,13 +35,22 @@
                                 Products
                             </label>
                             <select class="w-full h-12 bg-white border-gray-200 border rounded" name="product">
-                                @foreach($products as $product)
-                                    <option value="{{ $product->id }}">
-                                        {{ $product->name }}
+                                @foreach($parentCategories as $parentCategory => $subcategories)
+                                    <option value="" class="text-red-500 font-bold" disabled>
+                                        - {{ $parentCategory}}
                                     </option>
+                                    @foreach($subcategories as $subcategory => $products)
+                                        <option value="" class="text-red-400 font-medium" disabled>
+                                            &emsp;- {{ $subcategory }}
+                                        </option>
+                                        @foreach($products as $product)
+                                            <option value="{{ $product->id }}" class="font-normal">
+                                                &emsp;&emsp;{{ $product->name }}
+                                            </option>
+                                        @endforeach
+                                    @endforeach
                                 @endforeach
                             </select>
-
                             @error("products")
                             <p class="text-red-500 text-xs mt-1">
                                 {{ $message }}
@@ -59,7 +68,6 @@
                                     </option>
                                 @endforeach
                             </select>
-
                             @error("categories")
                             <p class="text-red-500 text-xs mt-1">
                                 {{ $message }}
