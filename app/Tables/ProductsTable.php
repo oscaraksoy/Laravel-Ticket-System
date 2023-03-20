@@ -27,6 +27,12 @@ class ProductsTable extends AbstractTableConfiguration
         return [
             Column::make('id')->sortable()->title('ID')->searchable()->sortable(),
             Column::make('name')->title('Name')->searchable()->sortable(),
+            Column::make('product_category')->title('Category')->format(function (Product $product) {
+                return $product->productCategory->parent->name;
+            }),
+            Column::make('product_subcategory')->title('Subcategory')->format(function (Product $product) {
+                return $product->productCategory->name;
+            }),
             Column::make('created_at')->title('Created')->format(new DateFormatter('d/m/Y H:i'))->sortable(),
         ];
     }
