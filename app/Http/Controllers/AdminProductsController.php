@@ -7,7 +7,9 @@ use App\Models\Product;
 class AdminProductsController extends Controller
 {
     public function create(){
-        return view('panel.products.create');
+        return view('panel.products.create', [
+            'products' => Product::all()
+        ]);
     }
 
     public function show(Product $product){
