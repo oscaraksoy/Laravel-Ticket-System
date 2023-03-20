@@ -2,7 +2,9 @@
 
 <div class="flex flex-row items-center justify-between space-x-6">
     <div class="flex flex-row space-x-6">
-        <div class="w-12 h-12 rounded-full bg-blue-500"></div>
+        <div class="flex flex-col justify-center items-center w-12 h-12 rounded-full bg-blue-500 text-white">
+            <x-tabler-icon-svg svg="{{ $reply->user->role->name === 'user' ? 'user' : 'user-heart' }}"/>
+        </div>
         <div class="flex flex-col">
             <p class="font-medium text-md">{{ $reply->user->name }}</p>
             <p class="text-gray-500 text-sm max-w-5xl mt-3">{{ $reply->explanation }}</p>
