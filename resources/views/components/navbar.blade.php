@@ -14,6 +14,11 @@
             </a>
         </li>
         <li>
+            <a href="/categories">
+                Categories
+            </a>
+        </li>
+        <li>
             <form action="/logout" method="post">
                 @csrf
                 <button type="submit" class="font-medium">Logout</button>
