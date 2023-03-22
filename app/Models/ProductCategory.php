@@ -14,6 +14,10 @@ class ProductCategory extends Model
         return ProductCategory::all()->whereNull('parent_id');
     }
 
+    public static function getGroupedCategories(){
+        return ProductCategory::with(['parent'])->get()->whereNotNull('parent.name')->groupBy('parent.name');
+    }
+
     public function parent(){
         return $this->belongsTo(ProductCategory::class, 'parent_id');
     }
