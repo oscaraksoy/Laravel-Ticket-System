@@ -3,7 +3,7 @@
 <div class="flex flex-col justify-center p-6 bg-white rounded-xl mt-6">
     @if($messages->count())
         @foreach($messages as $message)
-            <a class="flex flex-row items-center justify-between w-full" href="{{ $message->link_to }}?notificationId={{ $message->id }}">
+            <a class="flex flex-row items-center justify-between w-full" href="{{ $message->link_to }}?notificationId={{ $message->id }}&isRead={{ $message->is_read }}">
                 <div class="flex flex-row items-center">
                     <div class="flex items-center justify-center text-white w-12 h-12 mr-6 rounded-full bg-blue-500">
                         <x-tabler-icon-svg svg="{{ $message->is_read ? 'bell' : 'bell-ringing'}}"/>

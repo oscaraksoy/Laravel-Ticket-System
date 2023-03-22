@@ -19,9 +19,13 @@ class TicketController extends Controller
     }
 
     public function show(Ticket $ticket){
-        if(request()->has('notificationId')){
+        if(request()->has('notificationId') && request()->has('isRead')){
             $notificationId = request('notificationId');
-            Message::setReadMessage($notificationId);
+            $isRead = request('isRead');
+
+            if($isRead == 0){
+                Message::setReadMessage($notificationId);
+            }
         }
 
         return view('ticket.show', [
