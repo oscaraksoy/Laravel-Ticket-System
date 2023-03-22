@@ -15,7 +15,8 @@ class AdminProductsController extends Controller
 
     public function show(Product $product){
         return view('panel.products.show', [
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::getGroupedCategories()
         ]);
     }
 
@@ -38,7 +39,8 @@ class AdminProductsController extends Controller
 
     public function update(Product $product){
         $attributes = request()->validate([
-            'name' => ['required', 'max:255']
+            'name' => ['required', 'max:255'],
+            'product_category_id' => ['required']
         ]);
 
         $product->update($attributes);

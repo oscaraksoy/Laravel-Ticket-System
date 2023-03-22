@@ -53,6 +53,29 @@
             </p>
             @enderror
         </div>
+        <div class="mb-6 w-1/2">
+            <label class="block mb-2 uppercase font-bold text-xs text-gray-700" for="product_category_id">
+                Categories
+            </label>
+            <select class="mt-2 px-4 py-2 bg-white w-full rounded border" name="product_category_id">
+                @foreach($categories as $parentCategory => $subs)
+                    <option class="text-red-500 font-medium" disabled>
+                        {{ $parentCategory }}
+                    </option>
+                    @foreach($subs as $sub)
+                        <option value="{{ $sub->id }}" {{ $sub->id == $product->product_category_id ? 'selected' : '' }}>
+                            {{ $sub->name }}
+                        </option>
+                    @endforeach
+                    <br>
+                @endforeach
+            </select>
+            @error("product_category_id")
+            <p class="text-red-500 text-xs mt-1">
+                {{ $message }}
+            </p>
+            @enderror
+        </div>
         <div class="flex flex-end w-1/2">
             <button type="submit" class="p-2 rounded-md w-full transition-all ease-in-out duration-100 bg-blue-500 text-white hover:bg-blue-400 ">
                 Submit
