@@ -15,6 +15,7 @@
         </x-admin.side-bar-group>
         <x-admin.side-bar-group title="Product">
             <x-admin.side-bar-item icon="assembly" label="Operations" url="admin/products"/>
+            <x-admin.side-bar-item icon="category" label="Product Category" url="admin/products"/>
         </x-admin.side-bar-group>
         <x-admin.side-bar-group title="Category">
             <x-admin.side-bar-item icon="category" label="Operations" url="admin/categories"/>
