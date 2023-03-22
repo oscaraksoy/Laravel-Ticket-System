@@ -12,7 +12,7 @@ class Message extends Model
     protected $fillable = ['user_id', 'explanation', 'link_to', 'is_read'];
 
     public static function findUserMessages(){
-        return Message::where('user_id', auth()->user()->id);
+        return Message::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC');
     }
 
     public static function findUserMessagesPaginated(){
