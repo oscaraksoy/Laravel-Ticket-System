@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminProductsController;
 use App\Http\Controllers\AdminCategoriesController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\AdminProductCategoriesController;
 
 
 Route::get('/', [SessionController::class, 'create']);
@@ -64,4 +65,5 @@ Route::middleware('can:admin')->group(function(){
     Route::get('/admin/products', [AdminProductsController::class, "create"]);
     Route::get('/admin/products/{product:id}', [AdminProductsController::class, "show"])->name("panel.products.show");
     Route::patch('/admin/products/{product:id}', [AdminProductsController::class, "update"]);
+    Route::get('/admin/product-categories/', [AdminProductCategoriesController::class, 'create']);
 });
