@@ -17,6 +17,13 @@ class AdminProductCategoriesController extends Controller
         ]);
     }
 
+    public function show(ProductCategory $productCategory){
+        return view('panel.products.categories.show', [
+            'productCategory' => $productCategory,
+            'parentCategories' => ProductCategory::getParents()
+        ]);
+    }
+
     public function store(){
         $attributes = request()->validate([
             'name' => ['min:3'],
@@ -29,5 +36,19 @@ class AdminProductCategoriesController extends Controller
         ]);
 
         return redirect("/admin/product-categories")->with('dialogMessage', 'Product category created successfully.');
+    }
+
+    public function update(ProductCategory $productCategory){
+        $attributes = request()->validate([
+            'name' => ['min:3', 'required'],
+            'parentCategory' => ['nullable']
+        ]);
+
+        $productCategory->update([
+            'name' => $attributes['name'],
+            'parent_id' => $productCategory->parent_id != null ? $attributes['parentCategory'] : null
+        ]);
+
+        return redirect("/admin/product-categories")->with('dialogMessage', 'Product category edited successfully.');
     }
 }

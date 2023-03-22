@@ -8,6 +8,7 @@ use Okipa\LaravelTable\Column;
 use Okipa\LaravelTable\Formatters\DateFormatter;
 use Okipa\LaravelTable\RowActions\DestroyRowAction;
 use Okipa\LaravelTable\RowActions\EditRowAction;
+use Okipa\LaravelTable\RowActions\ShowRowAction;
 use Okipa\LaravelTable\Table;
 
 class ProductCategoriesTable extends AbstractTableConfiguration
@@ -16,6 +17,7 @@ class ProductCategoriesTable extends AbstractTableConfiguration
     {
         return Table::make()->model(ProductCategory::class)
             ->rowActions(fn(ProductCategory $productCategory) => [
+                new ShowRowAction(route('panel.products.categories.show', $productCategory)),
                 new DestroyRowAction(),
             ]);
     }
