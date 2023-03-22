@@ -2,7 +2,6 @@
     <x-admin.side-bar-base>
         <x-admin.side-bar-group title="Overview">
             <x-admin.side-bar-item icon="home-2" label="Home" url="admin/panel"/>
-            <x-admin.side-bar-item icon="inbox" label="Inbox" url=""/>
         </x-admin.side-bar-group>
         <x-admin.side-bar-group title="User">
             <x-admin.side-bar-item icon="user" label="Users" url="admin/users"/>
