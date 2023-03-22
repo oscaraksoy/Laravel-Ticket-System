@@ -3,8 +3,8 @@
         <div class="py-6 px-48">
             <h1 class="text-lg font-bold">Welcome, {{ auth()->user()->name }}! </h1>
             <div class="grid grid-cols-2 gap-x-6">
-                <x-info-bar title="Tickets with open status" subtitle="{{ $openTicketsCount}}"/>
-                <x-info-bar title="Tickets with closed status" subtitle="{{ $closedTicketsCount }}"/>
+                <x-info-bar title="Tickets with open status" subtitle="{{ $openTicketsCount}}" icon="lock-open"/>
+                <x-info-bar title="Tickets with closed status" subtitle="{{ $closedTicketsCount }}" icon="lock"/>
             </div>
             <hr class="divider my-12"/>
             <h1 class="text-lg font-bold">
