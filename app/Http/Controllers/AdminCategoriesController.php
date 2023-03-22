@@ -17,6 +17,20 @@ class AdminCategoriesController extends Controller
         ]);
     }
 
+    public function add(){
+        return view("panel.categories.add");
+    }
+
+    public function store(){
+        $attributes = request()->validate([
+           'name' => ['min:3']
+        ]);
+
+        Category::create($attributes);
+
+        return redirect("/admin/categories")->with('dialogMessage', 'Categories created successfully.');
+    }
+
     public function update(Category $category){
         $attributes = request()->validate([
             'name' => ['required', 'max:255']
