@@ -66,4 +66,6 @@ Route::middleware('can:admin')->group(function(){
     Route::get('/admin/products/{product:id}', [AdminProductsController::class, "show"])->name("panel.products.show");
     Route::patch('/admin/products/{product:id}', [AdminProductsController::class, "update"]);
     Route::get('/admin/product-categories/', [AdminProductCategoriesController::class, 'create']);
+    Route::get('/admin/product-categories/add', [AdminProductCategoriesController::class, 'add']);
+    Route::post('/admin/product-categories/add', [AdminProductCategoriesController::class, 'store']);
 });
