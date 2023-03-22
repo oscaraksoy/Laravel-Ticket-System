@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 
 class AdminProductsController extends Controller
 {
@@ -16,6 +17,23 @@ class AdminProductsController extends Controller
         return view('panel.products.show', [
             'product' => $product
         ]);
+    }
+
+    public function add(){
+        return view('panel.products.add', [
+            'categories' => ProductCategory::getGroupedCategories()
+        ]);
+    }
+
+    public  function store(){
+        $attributes = request()->validate([
+            'name' => ['required', 'min:5'],
+            'product_category_id' => ['required']
+        ]);
+
+        Product::create($attributes);
+
+        return redirect('/admin/products')->with('dialogMessage', 'Product has created successfully.');
     }
 
     public function update(Product $product){
