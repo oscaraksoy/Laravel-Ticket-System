@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Message;
 use App\Models\Ticket;
 use App\Models\TicketReply;
 
@@ -21,6 +22,13 @@ class TicketRepliesController extends Controller
         if(request()->user()->can('staff')){
             $ticket->update([
                 'status_id' => 2
+            ]);
+
+            Message::create([
+                'user_id' => $ticket->user->id,
+                'explanation' => 'Support request #'.$ticket->id.' has been answered!',
+                'link_to' => '/tickets/ticket/'.$ticket->id,
+                'is_read' => 0
             ]);
         }
 

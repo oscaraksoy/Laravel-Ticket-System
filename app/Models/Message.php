@@ -9,6 +9,8 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'explanation', 'link_to', 'is_read'];
+
     public static function findUserMessages(){
         return Message::where('user_id', auth()->user()->id);
     }
