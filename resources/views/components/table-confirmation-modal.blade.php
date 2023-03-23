@@ -1,6 +1,6 @@
 @props(['title', 'subtitle', 'icon'])
 <div class="hidden" id="confirmationModal">
-    <div class="absolute bg-black opacity-40 w-full h-screen"></div>
+    <div class="absolute top-0 left-0 bg-black opacity-40 w-full h-screen"></div>
     <div class="absolute top-0 right-0 bottom-0 opacity-100 left-0 h-80 m-auto rounded-lg bg-white flex flex-col items-center justify-between px-3 py-4" style="width: 32rem">
         <div class="flex-1 flex items-center flex-col justify-center">
             <i class="{{ $icon }} text-4xl mb-5"></i>
