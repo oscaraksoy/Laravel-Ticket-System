@@ -30,6 +30,13 @@ class UsersTable extends AbstractTableConfiguration
             Column::make('name')->searchable()->sortable()->title("Name"),
             Column::make('username')->searchable()->sortable()->title("Username"),
             Column::make('email')->searchable()->sortable()->title("Email"),
+            Column::make('role_id')
+                ->format(function(User $user){
+                    return ucwords($user->role->name);
+                })
+                ->searchable()
+                ->sortable()
+                ->title("Role"),
             Column::make('created_at')->format(new DateFormatter('d/m/Y H:i'))->sortable()->title("Created At"),
         ];
     }
