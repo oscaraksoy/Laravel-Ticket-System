@@ -35,6 +35,16 @@ class TicketRepliesController extends Controller
         return back()->with('dialogMessage', 'Your ticket reply has been created successfully!');
     }
 
+    public function update(Ticket $ticket, TicketReply $reply){
+        $attributes = request();
+
+        $reply->update([
+            'explanation' => $attributes["explanation"]
+        ]);
+
+        return back()->with('dialogMessage', 'Your ticket reply has been updated successfully!');
+    }
+
     public function destroy(Ticket $ticket, TicketReply $reply){
         TicketReply::where('id', '=', $reply->id, 'and', 'ticket_id', '=', $ticket->id)->delete();
         return back()->with('dialogMessage', 'Your reply has been deleted successfully!');

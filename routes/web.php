@@ -35,6 +35,7 @@ Route::get('/tickets', [TicketController::class, 'index']);
 Route::get('/tickets/ticket/{ticket:id}', [TicketController::class, 'show']);
 
 Route::post('/tickets/{ticket:id}/replies/', [TicketRepliesController::class, 'store']);
+Route::patch('/tickets/{ticket:id}/replies/{reply:id}', [TicketRepliesController::class, 'update']);
 Route::delete('/tickets/{ticket:id}/replies/{reply:id}', [TicketRepliesController::class, 'destroy']);
 
 Route::get('/tickets/create', [TicketController::class, 'create']);
