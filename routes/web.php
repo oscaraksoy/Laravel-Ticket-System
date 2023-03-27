@@ -53,6 +53,8 @@ Route::middleware('can:staff')->group(function(){
 Route::middleware('can:admin')->group(function(){
     Route::get('/admin/panel', [AdminPanelController::class, "create"]);
     Route::get('/admin/users', [AdminUsersController::class, "create"]);
+    Route::get('/admin/users/add', [AdminUsersController::class, "add"]);
+    Route::post('/admin/users/add', [AdminUsersController::class, "store"]);
     Route::get('/admin/users/{user:id}', [AdminUsersController::class, "show"])->name("panel.users.show");
     Route::patch('/admin/users/{user:id}', [AdminUsersController::class, "update"]);
     Route::get('/admin/tickets', [AdminTicketsController::class, "create"]);

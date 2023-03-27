@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 
 class AdminUsersController extends Controller
 {
@@ -15,6 +16,12 @@ class AdminUsersController extends Controller
     public function show(User $user){
         return view('panel.users.show', [
             'user' => $user,
+            'roles' => Role::all()
+        ]);
+    }
+
+    public function add(){
+        return view('panel.users.add', [
             'roles' => Role::all()
         ]);
     }
@@ -34,5 +41,23 @@ class AdminUsersController extends Controller
         ]);
 
         return redirect('/admin/users')->with('dialogMessage', 'User has been updated');
+    }
+
+    public function store(){
+        $attributes = request()->validate([
+            'name' => ['required', 'min:5'],
+            'username' => ['required', Rule::unique('users', 'username')],
+            'password' => ['required', 'min:7'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'role' => ['required'],
+        ]);
+
+        $role = $attributes['role'];
+        unset($attributes['role']);
+        $attributes['role_id'] = $role;
+
+        User::create($attributes);
+
+        return redirect('/admin/users')->with('dialogMessage', 'User created successfully.');
     }
 }
